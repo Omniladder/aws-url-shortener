@@ -47,9 +47,9 @@ hackathon-demo/
 │   ├── http.js            Response and user-id helpers
 │   ├── links/             list.js, create.js, delete.js, redirect.js
 │   └── auth/              auto-confirm.js (Cognito pre sign-up trigger)
-├── infra/                 AWS CDK app in JavaScript (its own package.json)
-│   ├── bin/app.js         CDK entry point
-│   ├── lib/short-links-stack.js  Every AWS resource and route
+├── infra/                 AWS CDK app in JavaScript (its own package.json and CLAUDE.md)
+│   ├── app.js             CDK entry point
+│   ├── stack.js           Every AWS resource and route (empty until written)
 │   └── cdk.json           Context: site domain and ACM certificate ARN
 └── docs/
     ├── arch/              Architecture Decision Records (see docs/arch/CLAUDE.md)

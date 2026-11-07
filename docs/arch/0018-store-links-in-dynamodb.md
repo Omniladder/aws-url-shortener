@@ -15,7 +15,7 @@
 - **Uniqueness:** the table key is `shortCode`. `create.js` writes with `ConditionExpression: attribute_not_exists(shortCode)`. On a clash it makes a new random code and tries again, up to five times (the same rule as ADR 0005).
 - **Ownership (replaces RLS):** the Lambdas check the user, not the database. `list.js` queries only the caller's `userId`. `delete.js` deletes with `ConditionExpression: userId = :caller`. If the condition fails, it answers 404, so it does not reveal whether another user's link exists.
 - **Validation (replaces the CHECK and NOT NULL constraints):** `create.js` refuses an empty name and a URL that does not start with `http://` or `https://`, before it writes.
-- The table is defined in `infra/lib/short-links-stack.js`. Table changes go through CDK, not hand-edited consoles. This replaces the Supabase migrations ([ADR 0011](0011-manage-database-changes-with-migrations.md)).
+- The table is defined in `infra/constructs/links-table.js` (the `LinksTable` construct) and created in `infra/stack.js`. Each Lambda's role gets read or write access to it through `LambdaRole` in `infra/constructs/lambda-role.js`. Table changes go through CDK, not hand-edited consoles. This replaces the Supabase migrations ([ADR 0011](0011-manage-database-changes-with-migrations.md)).
 - The table uses `RETAIN`, so a stack deletion keeps the data.
 
 ## Consequences

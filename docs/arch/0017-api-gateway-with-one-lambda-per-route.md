@@ -29,4 +29,4 @@
 - Each Lambda is small and does one job, which fits the workshop.
 - Each Lambda has its own IAM role. Each one gets only the table access it needs (read-only for listing and redirecting).
 - Cold starts add a little delay to the first request after a quiet period. This is acceptable for the app.
-- Adding a route means adding a file in `api/`, a route in `infra/lib/short-links-stack.js`, and a function in `frontend/services/`.
+- Adding a route means adding a file in `api/`, a `addLambdaRoute` call in `infra/stack.js`, and a function in `frontend/services/`.

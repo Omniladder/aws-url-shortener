@@ -1,6 +1,6 @@
 # ADR 0020: Redirect short links in a Lambda
 
-- **Status:** Accepted
+- **Status:** Partly superseded by [ADR 0023](0023-return-not-found-page-from-redirect-lambda.md) (the not-found response only)
 - **Date:** 2026-11-07
 
 ## Context

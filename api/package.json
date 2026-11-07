@@ -1,0 +1,11 @@
+{
+  "name": "short-links-api",
+  "version": "1.0.0",
+  "description": "Lambda handlers for the URL shortener",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "@aws-sdk/client-dynamodb": "^3.0.0",
+    "@aws-sdk/lib-dynamodb": "^3.0.0"
+  }
+}
