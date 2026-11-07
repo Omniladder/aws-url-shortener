@@ -1,7 +1,8 @@
 // infra/stack.js
 import * as cdk from 'aws-cdk-lib';
 import { HttpJwtAuthorizer } from 'aws-cdk-lib/aws-apigatewayv2-authorizers';
-import { HttpMethod } from 'aws-cdk-lib/aws-apigatewayv2';
+import { ApiMapping, DomainName, HttpMethod } from 'aws-cdk-lib/aws-apigatewayv2';
+import * as acm from 'aws-cdk-lib/aws-certificatemanager';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { PublicApi } from './constructs/gateway.js';
@@ -44,6 +45,21 @@ export class ShortLinkStack extends cdk.Stack {
         userPoolId: this.userPool.userPoolId,
         userPoolClientId: this.userPoolClient.userPoolClientId,
       },
+    });
+
+    // The custom domain (ADR 0015). API Gateway serves HTTPS for it with the ACM certificate from cdk.json.
+    // Cloudflare then points a CNAME for this name at the DnsTarget output.
+    const siteDomain = this.node.tryGetContext('siteDomain');
+    const certificate = acm.Certificate.fromCertificateArn(
+      this,
+      'SiteCertificate',
+      this.node.tryGetContext('certificateArn'),
+    );
+    this.customDomain = new DomainName(this, 'SiteDomain', { domainName: siteDomain, certificate });
+    new ApiMapping(this, 'SiteDomainMapping', {
+      api: this.api,
+      domainName: this.customDomain,
+      stage: this.api.defaultStage,
     });
 
     // The links API (ADR 0017). API Gateway checks the sign-in token (ADR 0019) before each Lambda runs.
@@ -95,6 +111,10 @@ export class ShortLinkStack extends cdk.Stack {
     new cdk.CfnOutput(this, 'ApiUrl', {
       value: this.api.apiEndpoint,
       description: 'Public URL of the site (go here in the browser)',
+    });
+    new cdk.CfnOutput(this, 'DnsTarget', {
+      value: this.customDomain.regionalDomainName,
+      description: 'Cloudflare CNAME for go.dustintobrien.com points here (DNS only, grey cloud)',
     });
   }
 }

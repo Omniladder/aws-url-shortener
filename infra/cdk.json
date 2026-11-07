@@ -2,6 +2,6 @@
   "app": "node app.js",
   "context": {
     "siteDomain": "go.dustintobrien.com",
-    "certificateArn": "arn:aws:acm:us-east-1:ACCOUNT_ID:certificate/CERTIFICATE_ID"
+    "certificateArn": "arn:aws:acm:us-east-1:406868976017:certificate/d5b5b54b-9004-44ac-9825-04de3b27b86e"
   }
 }
