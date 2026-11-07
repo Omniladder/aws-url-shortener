@@ -14,6 +14,7 @@ This folder holds every document about the project. Each subfolder has its own `
 - Explaining how to run or set up the project: `README.md` at the root.
 - Recording a technical decision: `arch/`.
 - Explaining how to use the app: `guides/`.
+- Describing the AWS setup as one document (for example, to draw a diagram): `aws-architecture.md`. The ADRs hold the reasons; this file holds the picture.
 - Explaining what a function is for: `design/`, and the JSDoc comment above the function.
 - Exploring an idea that is not decided yet: `ideation/`.
 
