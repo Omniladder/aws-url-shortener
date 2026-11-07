@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard | Short Links</title>
+    <link rel="icon" href="/logo.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="/frontend/index.css" />
+  </head>
+  <body>
+    <!--
+      The dashboard page. frontend/pages/dashboard.js connects its log out button to the auth service.
+      The table body starts empty. renderLinks in frontend/pages/dashboard.js fills it
+      with one copy of the row template below for each link.
+    -->
+    <div id="dashboard">
+      <main class="dashboard-page">
+        <header class="dashboard-header">
+          <div class="dashboard-title">
+            <img class="header-logo" src="/logo.svg" alt="Short Links" />
+            <h1>Your links</h1>
+          </div>
+          <div class="dashboard-actions">
+            <a href="/create.html" class="btn btn-primary">+ Create new</a>
+            <button type="button" class="btn btn-secondary" data-logout>Log out</button>
+          </div>
+        </header>
+
+        <section class="links-card">
+          <table class="links-table" hidden>
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Redirects to</th>
+                <th>Short link</th>
+                <th><span class="sr-only">Actions</span></th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+
+          <div class="empty-state" data-empty>
+            <h2>Welcome!</h2>
+            <p>You don't have any short links yet. Click the button to make your first shortened URL.</p>
+            <a href="/create.html" class="btn btn-primary">+ Create new</a>
+          </div>
+        </section>
+      </main>
+
+      <template id="link-row">
+        <tr>
+          <td data-name></td>
+          <td data-destination></td>
+          <td><a data-short-path>Short link</a></td>
+          <td>
+            <div class="link-actions">
+              <a class="btn btn-secondary btn-small" data-visit>Visit</a>
+              <button type="button" class="btn btn-secondary btn-small" data-copy-url>Copy URL</button>
+              <button type="button" class="btn btn-secondary btn-small" data-copy-short>Copy short link</button>
+              <button type="button" class="btn btn-danger btn-small" data-delete>Delete</button>
+            </div>
+          </td>
+        </tr>
+      </template>
+    </div>
+
+    <script type="module" src="/frontend/pages/dashboard.js"></script>
+  </body>
+</html>

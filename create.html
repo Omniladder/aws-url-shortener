@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Create link | Short Links</title>
+    <link rel="icon" href="/logo.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="/frontend/index.css" />
+  </head>
+  <body>
+    <!--
+      The create page. frontend/pages/create.js connects its form to the save action.
+    -->
+    <div id="create">
+      <main class="dashboard-page create-page">
+        <div class="page-top">
+          <img class="header-logo" src="/logo.svg" alt="Short Links" />
+          <a href="/dashboard.html" class="btn btn-secondary">Cancel</a>
+        </div>
+
+        <section class="form-card">
+          <h1 class="form-title">Create a short link</h1>
+
+          <form class="login-form" novalidate>
+            <label>
+              Name
+              <input name="label" type="text" placeholder="For example, Workshop slides" />
+            </label>
+
+            <label>
+              Destination URL
+              <input name="url" type="url" autocomplete="off" placeholder="https://example.com" />
+            </label>
+
+            <p class="login-error" role="alert" hidden></p>
+
+            <div class="login-actions">
+              <button type="submit" class="btn btn-primary">Create short link</button>
+            </div>
+          </form>
+        </section>
+      </main>
+    </div>
+
+    <script type="module" src="/frontend/pages/create.js"></script>
+  </body>
+</html>

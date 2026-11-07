@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Short Links</title>
+    <link rel="icon" href="/logo.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="/frontend/index.css" />
+  </head>
+  <body>
+    <!--
+      The redirect page for /r/:code. frontend/pages/redirect.js looks up the code and
+      sends the visitor on to the original address.
+    -->
+    <div id="redirect">
+      <main class="login-page">
+        <section class="login-card">
+          <p class="login-subtitle" data-loading>Opening your link...</p>
+
+          <div data-not-found hidden>
+            <h1>Link not found</h1>
+            <p class="login-subtitle" data-not-found-message>This short link does not exist. Check the address and try again.</p>
+          </div>
+        </section>
+      </main>
+    </div>
+    <script type="module" src="/frontend/pages/redirect.js"></script>
+  </body>
+</html>

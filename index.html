@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Short Links</title>
+    <link rel="icon" href="/logo.svg" type="image/svg+xml" />
+  </head>
+  <body>
+    <!--
+      The login page. frontend/pages/login.js connects its form to the auth service.
+    -->
+    <div id="login">
+      <main class="login-page">
+        <section class="login-card">
+          <h1><img class="login-logo" src="/logo.svg" alt="Short Links" /></h1>
+          <p class="login-subtitle">Log in to create and manage your links.</p>
+
+          <form class="login-form">
+            <label>
+              Email
+              <input name="email" type="email" autocomplete="email" placeholder="you@example.com" />
+            </label>
+
+            <label>
+              Password
+              <input name="password" type="password" autocomplete="current-password" placeholder="Your password" />
+            </label>
+
+            <p class="login-error" role="alert" hidden></p>
+
+            <div class="login-actions">
+              <button type="submit" class="btn btn-primary">Log in</button>
+            </div>
+          </form>
+        </section>
+      </main>
+    </div>
+    <!--
+      Loads the app's starting script as an ES module,
+      so its import statements work.
+    -->
+    <script type="module" src="/frontend/pages/login.js"></script>
+  </body>
+</html>
