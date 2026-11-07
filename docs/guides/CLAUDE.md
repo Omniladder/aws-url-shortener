@@ -35,7 +35,7 @@ When you build a feature, update the status line of every guide that covers it, 
 
 - Write for a beginner. Use short sentences and plain words.
 - Number the steps of every task. Start each step with the action: "Click", "Type", "Open".
-- Name the screen element the way the app labels it: **Add URL**, **Copy**, **Log out**.
+- Name the screen element the way the app labels it: **+ Create new**, **Copy short link**, **Log out**.
 - Explain a term the first time it appears. Short link is defined in guide 02.
 - Do not explain code, database tables, or cloud setup in a guide. Link to the README or an ADR instead.
 - Use a short "When something goes wrong" section for errors the user can see. Quote the exact message.

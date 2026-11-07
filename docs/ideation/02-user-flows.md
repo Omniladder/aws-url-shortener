@@ -22,24 +22,24 @@ Each flow lists what the user does, what the app does, and what the user sees. E
 4. Each row shows the name, the original URL, and the short URL.
 
 **Loading:** a skeleton row or "Loading your links..." message.
-**Empty:** "You have no short links yet" with a button to add one.
+**Empty:** "Welcome!" with a button to make the first link.
 **Error:** a message with a retry button.
 
 ## Flow 3: Create a short link
 
-1. User clicks **Add URL** and opens `/create`.
-2. User enters a name and a URL. The app checks that the URL starts with `http://` or `https://`.
-3. App calls `POST /api/links`. The Lambda makes a random short code and writes the row. A code that is already used is refused, and the Lambda tries again (see [ADR 0005](../arch/0005-random-short-codes-with-unique-constraint.md)).
-4. App returns to the dashboard, where the new link appears with its short URL.
+1. User clicks **+ Create new** and opens `/create.html`.
+2. User enters a name and a destination URL. The page checks that the URL starts with `http://` or `https://`.
+3. App calls `POST /api/links`. The Lambda checks the name and the URL, makes a 6-character random short code, and writes the row. A code that is already used is refused, and the Lambda tries again, up to five times (see [ADR 0005](../arch/0005-random-short-codes-with-unique-constraint.md) and [ADR 0018](../arch/0018-store-links-in-dynamodb.md)).
+4. App opens the dashboard, where the new link appears with its short URL.
 
 **Loading:** the button is disabled while saving.
-**Error:** invalid URL is shown inline. A failed save shows a message and keeps the typed URL.
+**Error:** invalid input is shown in the red box under the form. A failed save shows the message and keeps the typed text.
 
 ## Flow 4: Copy a short link
 
-1. User clicks **Copy** on a row in the dashboard.
-2. App writes the short URL to the clipboard.
-3. Button text changes to **Copied!** for a short time, then returns to **Copy**.
+1. User clicks **Copy short link** (or **Copy URL** for the original address) on a row in the dashboard.
+2. App writes that text to the clipboard.
+3. Button text changes to **Copied!** for a short time, then returns to its label.
 
 **Error:** if the clipboard is blocked, an alert shows the text so the user can copy it by hand.
 
@@ -55,13 +55,13 @@ Each flow lists what the user does, what the app does, and what the user sees. E
 1. Anyone opens `/r/:code`, signed in or not.
 2. API Gateway sends the request to the redirect Lambda, which reads only the destination (see [ADR 0020](../arch/0020-redirect-short-links-in-lambda.md)).
 3. If found, the browser gets a `302` and goes to the original URL.
-4. If not found, the browser goes to the "Link not found" page.
+4. If not found, the API returns the "Link not found" page with status `404` (see [ADR 0023](../arch/0023-return-not-found-page-from-redirect-lambda.md)).
 
-**Loading:** the browser shows its normal loading state. The redirect happens in the API, so the page never loads.
+The redirect happens in the API, so the app's pages never load for a short link.
 
 ## Flow 7: Log out
 
 1. User clicks **Log out** in the header.
 2. App ends the Cognito session in this browser.
 3. User lands on `/`.
-4. Pressing Back does not show the dashboard again, because the page checks the session.
+4. If the user presses Back to the dashboard, it shows no links, because there is no session.

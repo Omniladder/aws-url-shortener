@@ -20,8 +20,7 @@ Your account is ready as soon as you register. You do not need to confirm an ema
 
 - **"Enter your email and password."** One of the boxes is empty. Fill in both.
 - **"That password is wrong for this email."** The email already has an account, and the password does not match it. Try the password again.
-- **"Check your email to confirm your account, then log in."** This message is no longer used. If you see it, reload the page and log in again.
-- **Any other message in red under the form.** The message comes from the sign-in service, for example "Email not confirmed". Read it, fix what it asks for, and try again.
+- **Any other message in red under the form.** The message comes from the sign-in service. Read it, fix what it asks for, and try again.
 - **The buttons are greyed out for a moment.** The app is still working. Wait for it to finish.
 
 ## Stay signed in

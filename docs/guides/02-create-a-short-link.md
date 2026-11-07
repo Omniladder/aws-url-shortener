@@ -16,7 +16,7 @@ To leave without saving, click **Cancel**. The dashboard opens.
 
 ## What the short link looks like
 
-The short link has your app's address followed by `/r/` and a short code, for example `https://go.dustintobrien.com/r/a7Kq2xB`. The code is 7 random letters and digits, so each link is different even when two people shorten the same address.
+The short link has your app's address followed by `/r/` and a short code, for example `https://go.dustintobrien.com/r/Qw7mZ2`. The code is 6 random letters and digits, so each link is different even when two people shorten the same address.
 
 ## When something goes wrong
 
@@ -25,8 +25,9 @@ The message appears in a red box under the form. Your typed text stays in the bo
 - **"Enter a name for the link."** The **Name** box is empty. Type a name.
 - **"Enter the URL the short link should go to."** The **Destination URL** box is empty. Paste an address.
 - **"Enter a full web address that starts with http:// or https://."** The address is missing its start, or it is not a web address. Check the text and try again.
-- **"Could not make a unique short link. Try again."** The app tried five random codes and each one was already taken. Click **Create short link** again.
-- **Any other message in red.** The database returned it. Read it and try again.
+- **"Could not make a free short code. Try again."** The app tried five random codes and each one was already taken. Click **Create short link** again.
+- **"Log in first."** Your session has ended. Log in again, then create the link.
+- **Any other message in red.** The API returned it. Read it and try again.
 
 ## Next steps
 

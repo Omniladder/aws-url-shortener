@@ -6,18 +6,18 @@ Anyone can open a short link, whether or not they have an account or are logged 
 
 ## Steps
 
-1. Paste a short link into the address bar of your browser, for example `https://go.dustintobrien.com/r/a7Kq2xB`.
-2. Press Enter. The page shows **Opening your link...** for a moment.
-3. The browser opens the original address.
+1. Paste a short link into the address bar of your browser, for example `https://go.dustintobrien.com/r/Qw7mZ2`.
+2. Press Enter. The browser opens the original address straight away.
 
-The redirect replaces the short link page in your history. If you press Back, you go to the page you were on before the short link, not back to the short link.
+The short link is not kept in your history, so pressing Back takes you to the page you were on before the short link.
 
 ## When the link does not work
 
 The page shows the heading **Link not found** and this message:
 
 - **"This short link does not exist. Check the address and try again."** The code is wrong, or the owner deleted the link. Check the code for typing mistakes. If you copied the link, copy it again.
-- **Any other message in place of that sentence.** The lookup failed. Check your internet connection, reload the page, and try again.
+
+If the page does not load at all, check your internet connection, reload the page, and try again.
 
 ## Try it yourself
 

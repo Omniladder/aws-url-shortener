@@ -37,7 +37,7 @@ API Gateway needs an ACM certificate for the site address (for example `go.dusti
 
 ## 4. Set the domain and certificate
 
-Open `infra/cdk.json`. Set `siteDomain` to your domain and `certificateArn` to the ARN from step 3. Leave `certificateArn` empty to deploy without a custom domain, and use the `SiteUrl` output instead.
+Open `infra/cdk.json`. Set `siteDomain` to your domain and `certificateArn` to the ARN from step 3. Both are required: the stack will not deploy without a certificate.
 
 ## 5. Build and deploy
 
@@ -48,14 +48,16 @@ npx cdk bootstrap   # once per AWS account and region
 npx cdk deploy
 ```
 
-The deploy takes a few minutes. It uploads `dist/` to the bucket and writes `config.json` next to it. When it finishes, it prints:
+Run `npm run build` first. The deploy uploads the `dist/` folder to the site bucket.
 
-- `SiteUrl`: the address of the app.
-- `ApiGatewayTarget`: the API Gateway address for the CNAME.
+The deploy takes a few minutes. It also writes `config.json` next to the site files. When it finishes, it prints:
+
+- `ApiUrl`: the public address of the app. Open it in a browser.
+- `DnsTarget`: the address the Cloudflare CNAME points to.
 
 ## 6. Point Cloudflare at the app
 
-In Cloudflare, add a CNAME record for your site domain that points to the `ApiGatewayTarget` value. Use **DNS only** (grey cloud), so API Gateway handles the HTTPS certificate.
+In Cloudflare, add a CNAME record for your site domain that points to the `DnsTarget` value. Use **DNS only** (grey cloud), so API Gateway handles the HTTPS certificate.
 
 ## 7. Try it
 
@@ -66,11 +68,11 @@ In Cloudflare, add a CNAME record for your site domain that points to the `ApiGa
 
 ## 8. Run locally
 
-1. Copy the values from `config.json` in the bucket (or from `npx cdk deploy` output) into `public/config.json`. This file is not committed:
+1. Open `https://<your-site>/config.json` in a browser. Copy the two values into `public/config.json`. This file is not committed:
    ```json
-   { "region": "us-east-1", "userPoolId": "...", "userPoolClientId": "..." }
+   { "userPoolId": "...", "userPoolClientId": "..." }
    ```
-2. Start the dev server with the deployed API address:
+2. Start the dev server with the deployed API address (the `ApiUrl` value):
    ```
    API_ORIGIN=https://<api-id>.execute-api.<region>.amazonaws.com npm run dev
    ```
@@ -78,20 +80,20 @@ In Cloudflare, add a CNAME record for your site domain that points to the `ApiGa
 
 ## 9. Change the app
 
-- Change a route: edit its file in `api/links/` and its entry in `infra/lib/short-links-stack.js`.
-- Change a table or sign-in setting: edit `infra/lib/short-links-stack.js`, then run `npx cdk diff` and `npx cdk deploy`. Do not change these in the console.
-- Add a page: add its HTML file, its script in `frontend/pages/`, a line in `vite.config.js`, and a route in `infra/lib/short-links-stack.js`.
+- **Change a route:** edit its file in `api/links/`, and its `addLambdaRoute` call in `infra/stack.js`. Then add or change the matching function in `frontend/services/urls.js`.
+- **Change a table or sign-in setting:** edit `infra/stack.js` or the file in `infra/constructs/`, then run `npx cdk diff` and `npx cdk deploy`. Do not change these in the console.
+- **Add a page:** add its HTML file, its script in `frontend/pages/`, and an entry in the `input` list in `vite.config.js`. No infrastructure change is needed, because the site bucket serves every file in `dist/` ([ADR 0016](../arch/0016-serve-site-from-s3-through-api-gateway.md)).
 
 ## 10. Remove the app
 
-`cd infra && npx cdk destroy` removes the stack. The DynamoDB table and Cognito user pool are kept on purpose, so user data is not lost. Delete them in the console when you no longer need them.
+`cd infra && npx cdk destroy` removes the stack, including the site bucket. The DynamoDB table and Cognito user pool are kept on purpose, so user data is not lost. Delete them in the console when you no longer need them.
 
 ## Troubleshooting
 
 - **The login page says the site is missing `config.json`.** Run the deploy again, or check `public/config.json` in local development.
 - **Creating a link shows "Log in first."** The session has ended. Log in again.
 - **`cdk deploy` fails on the certificate.** The certificate is not issued yet, or it is in a different region from the deploy.
-- **A short link goes to the login page.** The API route is missing. Check `infra/lib/short-links-stack.js` and deploy again.
+- **A short link does not redirect.** The `/r/{code}` route is missing or has not been deployed. Check `infra/stack.js` and deploy again.
 
 ## Related decisions
 
@@ -100,4 +102,5 @@ In Cloudflare, add a CNAME record for your site domain that points to the `ApiGa
 - [ADR 0017](../arch/0017-api-gateway-with-one-lambda-per-route.md): the routes.
 - [ADR 0018](../arch/0018-store-links-in-dynamodb.md): the links table.
 - [ADR 0019](../arch/0019-cognito-for-sign-in.md): sign-in.
-- [ADR 0020](../arch/0020-redirect-short-links-in-lambda.md): short link redirects.
+- [ADR 0020](../arch/0020-redirect-short-links-in-lambda.md) and [ADR 0023](../arch/0023-return-not-found-page-from-redirect-lambda.md): short link redirects.
+- [ADR 0022](../arch/0022-wrap-cdk-constructs-in-app-classes.md): the CDK wrapper classes.

@@ -3,7 +3,7 @@ import { Amplify } from 'aws-amplify';
 /**
  * The one place the browser sets up sign-in. The Cognito ids come from
  * /config.json, which the CDK stack writes next to the site files
- * (see infra/lib/short-links-stack.js and docs/arch/0019).
+ * (see infra/stack.js and docs/arch/0019).
  *
  * The first call loads the file and configures Amplify. Later calls reuse that result.
  *

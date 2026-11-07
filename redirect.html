@@ -9,8 +9,9 @@
   </head>
   <body>
     <!--
-      The redirect page for /r/:code. frontend/pages/redirect.js looks up the code and
-      sends the visitor on to the original address.
+      The "Link not found" page. The API (GET /r/:code) redirects known codes and serves
+      its own copy of this message for unknown ones (ADR 0023). frontend/pages/redirect.js
+      only shows the message when this file is opened directly.
     -->
     <div id="redirect">
       <main class="login-page">

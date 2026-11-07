@@ -23,10 +23,12 @@ The interface should look like a clean, minimal SaaS tool. Attendees should be a
 
 ## Screens
 
-- **Login:** a centered card with email, password, and two buttons (Log in, Register). Error text appears under the form.
-- **Dashboard:** page title, Add URL button at the top right, and the list of links.
-- **Create:** a single input with a Save button. The result card shows the short URL and a Copy button.
-- **Redirect error:** a centered message with a link back to the home page.
+The first version is built with these screens. Where it differs from the first plan, the built version is noted.
+
+- **Login:** a centered card with email, password, and one **Log in** button. Logging in also creates an account for a new email. Error text appears under the form. (The plan had a separate **Register** button. It was dropped, because one form covers both.)
+- **Dashboard:** page title, **+ Create new** button at the top right, and the list of links. The table shows Name, Redirects to, and Short link, with the actions on each row. (The plan had a date column. It is not built.)
+- **Create:** a form with a **Name** box, a **Destination URL** box, and a **Create short link** button. After a save, the app opens the dashboard. (The plan had a result card. It is not built, because the new link appears in the table.)
+- **Redirect error:** a centered "Link not found" message. The API returns it for an unknown code (see [ADR 0023](../arch/0023-return-not-found-page-from-redirect-lambda.md)).
 
 ## Out of scope for design
 

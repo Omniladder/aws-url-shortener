@@ -24,7 +24,7 @@ Read the relevant ADR before changing code it covers. For example:
 
 - Before editing the DynamoDB table or the owner checks in `api/links/`, read [ADR 0018](0018-store-links-in-dynamodb.md) and [ADR 0020](0020-redirect-short-links-in-lambda.md).
 - Before editing `frontend/services/auth.js` or the Cognito setup, read [ADR 0019](0019-cognito-for-sign-in.md).
-- Before editing `infra/lib/short-links-stack.js`, the routes, or the build setup, read [ADR 0015](0015-host-on-aws-with-cdk.md) and [ADR 0016](0016-serve-site-from-s3-through-api-gateway.md).
+- Before editing `infra/stack.js`, `infra/constructs/`, the routes, or the build setup, read [ADR 0015](0015-host-on-aws-with-cdk.md), [ADR 0016](0016-serve-site-from-s3-through-api-gateway.md), and [ADR 0022](0022-wrap-cdk-constructs-in-app-classes.md).
 
 If new code contradicts an accepted ADR, stop and write a new ADR that supersedes it. Do not silently change the code.
 
